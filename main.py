@@ -2,6 +2,8 @@ import pygame as py
 import sys
 import settings
 import sprites
+from os import path
+
 
 class Game:
     def __init__(self):
@@ -13,16 +15,26 @@ class Game:
         self.load_data()
         
     def load_data(self):
-        pass
+        game_folder = path.dirname(__file__)
+        self.map_data = []
+        with open(path.join(game_folder, 'map.txt'), 'rt') as f:
+            for line in f:
+                self.map_data.append(line)
+                
     
     def new(self):
         self.all_sprites = py.sprite.Group()
         self.walls = py.sprite.Group()
-        self.player_agua = sprites.Player(self, 10, 10)
-        self.player_fogo = sprites.Player2(self, 5, 10)
         
-        for x in range(10, 20):
-            sprites.Wall(self, x, 5)
+        for row, tiles in enumerate(self.map_data):
+            for col, tile in enumerate(tiles):
+                if tile == '1':
+                    sprites.Wall(self, col, row)
+                if tile == 'S':
+                    self.player_agua = sprites.Player(self, col, row)
+                if tile == 'L':
+                    self.player_fogo = sprites.Player2(self, col, row)
+                    
         
     def run(self):
         self.playing = True
@@ -60,26 +72,6 @@ class Game:
             if event.type == py.KEYDOWN:
                 if event.key == py.K_ESCAPE:
                     self.quit()
-                    
-                #ÁGUA:
-                if event.key == py.K_LEFT:
-                    self.player_agua.move(dx = -1)
-                if event.key == py.K_RIGHT:
-                    self.player_agua.move(dx = 1)
-                if event.key == py.K_UP:
-                    self.player_agua.move(dy = -1)
-                if event.key == py.K_DOWN:
-                    self.player_agua.move(dy = 1)
-                    
-                #FOGO:
-                if event.key == py.K_a:
-                    self.player_fogo.move(dx = -1)
-                if event.key == py.K_d:
-                    self.player_fogo.move(dx = 1)
-                if event.key == py.K_w:
-                    self.player_fogo.move(dy = -1)
-                if event.key == py.K_s:
-                    self.player_fogo.move(dy = 1)
                     
     def show_start_screen(self):
         pass
