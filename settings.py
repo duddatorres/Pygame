@@ -13,13 +13,13 @@ LIGHTGREY = (100,100,100)
 
 #DEFINIÇÕES:
 
-TITLE = "SharkBoy & LavaGirl"
+TITLE = "TAG"
 
 py.init()
 screenInfo = py.display.Info()
 
-WIDTH = screenInfo.current_w
-HEIGHT = screenInfo.current_h
+WIDTH = 1020
+HEIGHT = 540
 
 TILESIZE = 32
 GRIDWIDTH = WIDTH / TILESIZE
