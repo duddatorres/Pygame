@@ -8,8 +8,8 @@ from os import path
 class Game:
     def __init__(self):
         py.init()
-        self.screen = py.display.set_mode((settings.WIDTH, settings.HEIGHT),py.RESIZABLE)
-        os.environ['SDL_VIDEO_CENTERED'] = '1'
+        self.screen = py.display.set_mode((settings.WIDTH, settings.HEIGHT)) #escolhendo largura e altura da malha quadriculada
+#        os.environ['SDL_VIDEO_CENTERED'] = '1'
         py.display.set_caption(settings.TITLE)
         self.clock = py.time.Clock()
         py.key.set_repeat(500, 100)
@@ -73,30 +73,13 @@ class Game:
                 if event.key == py.K_ESCAPE:
                     self.quit()
                     
-                
-                #arrumar o tamanho da tela
-            if event.key == py.K_f and py.key.get_mods() & py.KMOD_ALT:
-                #se apertar ALT + F, a tela fica fullscreen
-                py.display.quit()
-                py.display.init()
-                self.screen = py.display.set_mode((0, 0), py.FULLSCREEN)
-            
-            if event.key == py.K_g and py.key.get_mods() & py.KMOD_ALT:
-                #se apertar ALT + G (ia ficar ruim colocar W mas pode ser outra), a tela fica windowed
-                py.display.quit()
-                py.display.init()
-                self.screen = py.display.set_mode((settings.WIDTH, settings.HEIGHT), py.RESIZABLE)
-                
-            if event.key == py.K_h:
-                self.draw_debug = not self.draw_debug
-                    
     def show_start_screen(self):
         pass
     
     def show_go_screen(self):
         pass
     
-g=Game()
+g = Game()
 g.show_start_screen()
 while True:
     g.new()
