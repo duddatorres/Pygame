@@ -17,14 +17,17 @@ class Player(py.sprite.Sprite):
     def get_keys(self):
         self.vx, self.vy = 0, 0
         keys = py.key.get_pressed()
+        if keys[py.K_RIGHT]:
+            self.vx = settings.PLAYER_SPEED
+        if keys[py.K_UP]:
+            self.vy = -settings.PLAYER_SPEED
         if keys[py.K_LEFT]:
             self.vx = -settings.PLAYER_SPEED
-        elif keys[py.K_RIGHT]:
-            self.vx = settings.PLAYER_SPEED
-        elif keys[py.K_UP]:
-            self.vy = -settings.PLAYER_SPEED
-        elif keys[py.K_DOWN]:
+        if keys[py.K_DOWN]:
             self.vy = settings.PLAYER_SPEED
+        if self.vx != 0 and self.vy != 0:
+            self.vx *= 0.7071
+            self.vy *= 0.7071
             
     def collide_with_walls(self, dir):
         if dir == 'x':
@@ -55,8 +58,6 @@ class Player(py.sprite.Sprite):
         self.collide_with_walls('x')
         self.rect.y = self.y
         self.collide_with_walls('y')
-
-
 
 class Player2(py.sprite.Sprite):
     #PLAYER FOGO
@@ -74,14 +75,25 @@ class Player2(py.sprite.Sprite):
     def get_keys(self):
         self.vx, self.vy = 0, 0
         keys = py.key.get_pressed()
+        if keys[py.K_d]:
+            self.vx = settings.PLAYER_SPEED
+        if keys[py.K_w]:
+            self.vy = -settings.PLAYER_SPEED
         if keys[py.K_a]:
             self.vx = -settings.PLAYER_SPEED
-        elif keys[py.K_d]:
-            self.vx = settings.PLAYER_SPEED
-        elif keys[py.K_w]:
-            self.vy = -settings.PLAYER_SPEED
-        elif keys[py.K_s]:
+        if keys[py.K_s]:
             self.vy = settings.PLAYER_SPEED
+        if self.vx != 0 and self.vy != 0:
+            self.vx *= 0.7071
+            self.vy *= 0.7071
+            
+    def collide_with_player(self):
+        g = py.sprite.Group()
+        g.add(self.game.player_agua)
+        hits = py.sprite.spritecollide(self, g, False)
+        if hits:
+            print("colidiu")
+
             
     def collide_with_walls(self, dir):
         if dir == 'x':
@@ -103,7 +115,7 @@ class Player2(py.sprite.Sprite):
                     self.y= hits[0].rect.bottom
                 self.vy = 0
                 self.rect.y = self.y
-        
+                        
     def update(self):
         self.get_keys()
         self.x += self.vx * self.game.dt
@@ -111,9 +123,8 @@ class Player2(py.sprite.Sprite):
         self.rect.x = self.x
         self.collide_with_walls('x')
         self.rect.y = self.y
-        self.collide_with_walls('y')
-        
-        
+        self.collide_with_walls('y')  
+        self.collide_with_player()
         
 class Wall(py.sprite.Sprite):
     def __init__(self, game, x ,y):
