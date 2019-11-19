@@ -1,38 +1,35 @@
 import pygame as py
 
-#CORES:
-WHITE = (255,255,255)
-BLACK = (0,0,0)
-RED = (255,0,0)
-BLUE = (0,255,255)
-GREEN = (0,255,0)
-DARKGREY = (40,40,40)
-LIGHTGREY = (100,100,100)
+# - CORES:
+YELLOW = (255,204,0)   #player 1
+BLUE = (0,255,255)     #player 2
+
+GREEN = (0,255,0)      #muro
+ORANGE = (255,102,0)   #portal 1
+PURPLE = (126,58,153)  #portal 2
+
+WHITE = (255,255,255)  #indicador
+
+DARKGREY = (40,40,40)  #cor do fundo
 
 
-
-#DEFINIÇÕES:
-
+# - DEFINIÇÕES:
 TITLE = "TAG"
 
 py.init()
 screenInfo = py.display.Info()
-
-WIDTH = 1020
-HEIGHT = 540
+WIDTH = screenInfo.current_w
+HEIGHT = screenInfo.current_h
 
 TILESIZE = 32
-GRIDWIDTH = WIDTH / TILESIZE
-GRIDHEIGHT = HEIGHT / TILESIZE
-
-FPS = 60
 
 BGCOLOR = DARKGREY
 
+FPS = 1000
 
 
-#DEFINIÇÕES DO PLAYER:
-PLAYER_SPEED= 300
+# - DEFINIÇÕES DO PLAYER:
+PLAYER_SPEED = 1000 #300
 
 
 

@@ -2,14 +2,12 @@ import pygame as py
 import sys
 import settings
 import sprites
-import os
 from os import path
 
 class Game:
     def __init__(self):
         py.init()
-        self.screen = py.display.set_mode((settings.WIDTH, settings.HEIGHT)) #escolhendo largura e altura da malha quadriculada
-#        os.environ['SDL_VIDEO_CENTERED'] = '1'
+        self.screen = py.display.set_mode((0,0), py.RESIZABLE)
         py.display.set_caption(settings.TITLE)
         self.clock = py.time.Clock()
         py.key.set_repeat(500, 100)
@@ -30,12 +28,29 @@ class Game:
             for col, tile in enumerate(tiles):
                 if tile == '1':
                     sprites.Wall(self, col, row)
-                if tile == 'S':
-                    self.player_agua = sprites.Player(self, col, row)
-                if tile == 'L':
-                    self.player_fogo = sprites.Player2(self, col, row)
                     
+                if tile == 'L':
+                    sprites.Portal_L(self, col, row)
+                if tile == 'l':
+                    sprites.Portal_l(self, col, row)
+                    
+                if tile == 'R':
+                    sprites.Portal_R(self, col, row)
+                if tile == 'r':
+                    sprites.Portal_r(self, col, row)
+                    
+                if tile == '!':
+                    self.player_agua = sprites.Player(self, col, row)
+                    self.players_agua = py.sprite.Group()
+                    self.players_agua.add(self.player_agua)
+                if tile == '@':
+                    self.player_fogo = sprites.Player2(self, col, row)
+                    self.players_fogo = py.sprite.Group()
+                    self.players_fogo.add(self.player_fogo)
         
+                if tile == 'i':
+                    sprites.Indicador(self, col, row)
+                
     def run(self):
         self.playing = True
         while self.playing:
@@ -50,17 +65,9 @@ class Game:
         
     def update(self):
         self.all_sprites.update()        
-        
-    def draw_grid(self):
-        for x in range(0, settings.WIDTH, settings.TILESIZE):
-            py.draw.line(self.screen, settings.LIGHTGREY, (x,0), (x,settings.HEIGHT))
-            
-        for y in range(0, settings.HEIGHT, settings.TILESIZE):
-            py.draw.line(self.screen, settings.LIGHTGREY, (0,y), (settings.WIDTH,y))
             
     def draw(self):
         self.screen.fill(settings.BGCOLOR)
-        self.draw_grid()
         self.all_sprites.draw(self.screen)
         py.display.flip()
         
@@ -68,17 +75,19 @@ class Game:
         for event in py.event.get():
             if event.type == py.QUIT:
                 self.quit()
-                
+
             if event.type == py.KEYDOWN:
                 if event.key == py.K_ESCAPE:
                     self.quit()
-                    
+
     def show_start_screen(self):
         pass
-    
+
     def show_go_screen(self):
         pass
-    
+
+
+
 g = Game()
 g.show_start_screen()
 while True:
