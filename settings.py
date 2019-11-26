@@ -3,13 +3,14 @@ import pygame as py
 #-----------------------------------------------------------------------------#
 
 # - CORES:
-YELLOW = (255,204,0)            #player 1
-BLUE = (0,255,255)              #player 2
+RED = (255,0,0)            #player 1 / amarelo / fogo
+BLUE = (0,255,255)              #player 2 / azul / água
 
 GREEN = (0,255,0)               #parede
-ORANGE = (255,102,0)            #portal 1
-PURPLE = (126,58,153)           #portal 2
+ORANGE = (255,102,0)            #portal 1 / laranja
+PURPLE = (126,58,153)           #portal 2 / roxo
 
+BLACK = (0,0,0)
 WHITE = (255,255,255)           #indicador
 
 DARKGREY = (40,40,40)           #cor do fundo
@@ -33,4 +34,11 @@ FPS = 1000                      #quantidade de frames per second
 #-----------------------------------------------------------------------------#
 
 # - DEFINIÇÕES DO PLAYER:
-PLAYER_SPEED = 1000             #velocidade do player
+PLAYER_SPEED = 1200             #velocidade do player
+PLAYER_ROT_SPEED = 250
+
+PLAYER_HIT_RECT = py.Rect(0, 0, 35, 35)
+
+PLAYER_IMG = 'PLAYER1.png'
+PLAYER2_IMG = 'PLAYER2.png'
+MURO_IMG = 'MURO.png'
